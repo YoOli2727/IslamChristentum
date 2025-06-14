@@ -1,1 +1,32 @@
-{}
+{
+  "folders": [
+    {
+      "id": "folder-1749941096219",
+      "name": "test",
+      "description": "",
+      "parentId": "root",
+      "religion": "christianity"
+    }
+  ],
+  "topics": [
+    {
+      "id": "topic-1749941102262",
+      "title": "test",
+      "description": "",
+      "parentId": "folder-1749941096219",
+      "religion": "christianity",
+      "sources": [
+        {
+          "id": "source-1749941136178",
+          "title": "test",
+          "author": "test",
+          "year": "2",
+          "coverImage": "bilder/Sebni.jpg",
+          "pageScan": "bilder/Sebni.jpg",
+          "translation": "",
+          "category": "christianity"
+        }
+      ]
+    }
+  ]
+}
