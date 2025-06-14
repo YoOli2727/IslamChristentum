@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vergleichende Religionsstudie: Islam und Christentum</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .religion-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+        .religion-tab {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+            width: 200px;
+            text-align: center;
+        }
+        .religion-tab:hover {
+            background-color: #2980b9;
+        }
+        .religion-tab.active {
+            background-color: #2c3e50;
+        }
+        .religion-section {
+            display: none;
+        }
+        .religion-section.active {
+            display: block;
+        }
+        .topic-container, .folder-container {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .folder-container {
+            border-left: 5px solid #3498db;
+        }
+        .topic-header, .folder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .topic-title, .folder-title {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .folder-title {
+            display: flex;
+            align-items: center;
+        }
+        .folder-icon {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        .topic-controls, .folder-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .source-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        .source-card img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+        .source-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        .btn-success {
+            background-color: #2ecc71;
+        }
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        .btn-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            padding: 0;
+            font-size: 1.2em;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 60%;
+            max-width: 700px;
+        }
+        .close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+        }
+        .add-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .collapse-btn {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #666;
+        }
+        .hidden {
+            display: none;
+        }
+        .topic-content, .folder-content {
+            transition: max-height 0.3s ease-out;
+        }
+        .file-inputs {
+            margin-bottom: 10px;
+        }
+        .file-preview {
+            margin-top: 5px;
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .trash-icon, .folder-icon-svg {
+            fill: #fff;
+            width: 18px;
+            height: 18px;
+        }
+        .religion-intro {
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        .back-to-top {
+            background-color: rgba(52, 152, 219, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            cursor: pointer;
+            display: none;
+            z-index: 999;
+            transition: background-color 0.3s;
+        }
+        .back-to-top:hover {
+            background-color: rgba(41, 128, 185, 0.9);
+        }
+        .folder-items {
+            margin-left: 20px;
+            padding-left: 15px;
+            border-left: 1px dashed #ccc;
+        }
+        .move-to-folder {
+            padding: 5px;
+            margin-top: 10px;
+        }
+        .breadcrumb {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+        }
+        .breadcrumb li:not(:last-child):after {
+            content: ">";
+            margin: 0 10px;
+            color: #777;
+        }
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+<div style="text-align:center; margin-bottom: 20px;">
+<h3>Daten speichern/laden</h3>
+<button class="btn" onclick="saveDataToFile('christianity', christianityData)">📥 Christentum speichern</button>
+<input onchange="loadDataFromFile(this, 'christianity')" type="file"/>
+<br/><br/>
+<button class="btn" onclick="saveDataToFile('islam', islamData)">📥 Islam speichern</button>
+<input onchange="loadDataFromFile(this, 'islam')" type="file"/>
+</div>
+<div class="container">
+<h1>Vergleichende Religionsstudie: Islam und Christentum</h1>
+<p>Ihre persönliche Sammlung von Quellen und Materialien</p>
+</div>
+</header>
+<div class="container">
+<!-- Religionsauswahl Tabs -->
+<div class="religion-tabs">
+<button class="religion-tab active" data-religion="christianity">Christentum</button>
+<button class="religion-tab" data-religion="islam">Islam</button>
+</div>
+<!-- Christentum Sektion -->
+<div class="religion-section active" id="christianity-section">
+<div class="religion-intro">
+<h2>Christentum</h2>
+<p>Willkommen zum Bereich des Christentums. Hier finden Sie Ihre Materialsammlung zu christlichen Themen, heiligen Schriften und theologischen Konzepten.</p>
+</div>
+<div class="btn-group">
+<button class="btn btn-success add-btn" id="addChristianityFolderBtn">Neuen Ordner erstellen</button>
+<button class="btn add-btn" id="addChristianityTopicBtn">Neues christliches Thema hinzufügen</button>
+</div>
+<div class="breadcrumb" id="christianity-breadcrumb">
+<li><a data-path="root" data-religion="christianity" href="#">Hauptverzeichnis</a></li>
+</div>
+<div class="content-container" id="christianity-container">
+<!-- Christliche Ordner und Themen werden hier dynamisch eingefügt -->
+</div>
+</div>
+<!-- Islam Sektion -->
+<div class="religion-section" id="islam-section">
+<div class="religion-intro">
+<h2>Islam</h2>
+<p>Willkommen zum Bereich des Islams. Hier finden Sie Ihre Materialsammlung zu islamischen Themen, heiligen Schriften und theologischen Konzepten.</p>
+</div>
+<div class="btn-group">
+<button class="btn btn-success add-btn" id="addIslamFolderBtn">Neuen Ordner erstellen</button>
+<button class="btn add-btn" id="addIslamTopicBtn">Neues islamisches Thema hinzufügen</button>
+</div>
+<div class="breadcrumb" id="islam-breadcrumb">
+<li><a data-path="root" data-religion="islam" href="#">Hauptverzeichnis</a></li>
+</div>
+<div class="content-container" id="islam-container">
+<!-- Islamische Ordner und Themen werden hier dynamisch eingefügt -->
+</div>
+</div>
+</div>
+<!-- Zurück nach oben Button -->
+<button class="back-to-top" id="backToTop">↑</button>
+<!-- Modal für neuen Ordner -->
+<div class="modal" id="folderModal">
+<div class="modal-content">
+<span class="close">×</span>
+<h2>Neuen Ordner erstellen</h2>
+<form id="folderForm">
+<input id="folderReligion" type="hidden" value="christianity"/>
+<input id="parentFolderId" type="hidden" value="root"/>
+<div class="form-group">
+<label for="folderName">Ordnername:</label>
+<input id="folderName" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="folderDescription">Beschreibung:</label>
+<textarea id="folderDescription"></textarea>
+</div>
+<button class="btn" type="submit">Ordner erstellen</button>
+</form>
+</div>
+</div>
+<!-- Modal für neues Thema -->
+<div class="modal" id="topicModal">
+<div class="modal-content">
+<span class="close">×</span>
+<h2>Neues Thema hinzufügen</h2>
+<form id="topicForm">
+<input id="topicReligion" type="hidden" value="christianity"/>
+<input id="topicParentId" type="hidden" value="root"/>
+<div class="form-group">
+<label for="topicTitle">Thema:</label>
+<input id="topicTitle" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="topicDescription">Beschreibung:</label>
+<textarea id="topicDescription"></textarea>
+</div>
+<button class="btn" type="submit">Thema erstellen</button>
+</form>
+</div>
+</div>
+<!-- Modal für neue Quelle -->
+<div class="modal" id="sourceModal">
+<div class="modal-content">
+<span class="close">×</span>
+<h2>Neue Quelle hinzufügen</h2>
+<form id="sourceForm">
+<input id="topicId" type="hidden"/>
+<input id="sourceReligion" type="hidden"/>
+<div class="form-group">
+<label for="sourceTitle">Titel:</label>
+<input id="sourceTitle" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="sourceAuthor">Autor:</label>
+<input id="sourceAuthor" type="text"/>
+</div>
+<div class="form-group">
+<label for="sourceYear">Jahr:</label>
+<input id="sourceYear" type="number"/>
+</div>
+<div class="form-group">
+<label for="coverImage">Buchcover:</label>
+<input accept="image/*" id="coverImage" type="file"/>
+<img alt="" class="file-preview" id="coverPreview" src=""/>
+</div>
+<div class="form-group">
+<label for="pageScan">Seitenscan:</label>
+<input accept="image/*" id="pageScan" type="file"/>
+<img alt="" class="file-preview" id="scanPreview" src=""/>
+</div>
+<div class="form-group">
+<label for="sourceTranslation">Übersetzung/Notizen:</label>
+<textarea id="sourceTranslation"></textarea>
+</div>
+<div class="form-group">
+<label for="sourceCategory">Kategorie:</label>
+<select id="sourceCategory">
+<option value="islam">Islam</option>
+<option value="christianity">Christentum</option>
+<option value="comparative">Vergleichend</option>
+<option value="other">Sonstiges</option>
+</select>
+</div>
+<button class="btn" type="submit">Quelle hinzufügen</button>
+</form>
+</div>
+</div>
+<!-- Modal zum Verschieben in einen Ordner -->
+<div class="modal" id="moveModal">
+<div class="modal-content">
+<span class="close">×</span>
+<h2>In Ordner verschieben</h2>
+<form id="moveForm">
+<input id="moveItemId" type="hidden"/>
+<input id="moveItemType" type="hidden"/>
+<input id="moveReligion" type="hidden"/>
+<div class="form-group">
+<label for="targetFolder">Zielordner auswählen:</label>
+<select id="targetFolder">
+<option value="root">Hauptverzeichnis</option>
+<!-- Ordner werden hier dynamisch eingefügt -->
+</select>
+</div>
+<button class="btn" type="submit">Verschieben</button>
+</form>
+</div>
+</div>
+<script>
+        // Datenstruktur für die Ordner, Themen und Quellen
+        let christianityData = {
+            folders: [], topics: []
+        };
+        
+        let islamData = {
+            folders: [], topics: []
+        };
+
+        // Aktuelle Pfade für Navigation
+        let currentChristianityPath = "root";
+        let currentIslamPath = "root";
+
+        // DOM-Elemente
+        const christianityContainer = document.getElementById('christianity-container');
+        const islamContainer = document.getElementById('islam-container');
+        const addChristianityFolderBtn = document.getElementById('addChristianityFolderBtn');
+        const addIslamFolderBtn = document.getElementById('addIslamFolderBtn');
+        const addChristianityTopicBtn = document.getElementById('addChristianityTopicBtn');
+        const addIslamTopicBtn = document.getElementById('addIslamTopicBtn');
+        const folderModal = document.getElementById('folderModal');
+        const topicModal = document.getElementById('topicModal');
+        const sourceModal = document.getElementById('sourceModal');
+        const moveModal = document.getElementById('moveModal');
+        const folderForm = document.getElementById('folderForm');
+        const topicForm = document.getElementById('topicForm');
+        const sourceForm = document.getElementById('sourceForm');
+        const moveForm = document.getElementById('moveForm');
+        const closeButtons = document.querySelectorAll('.close');
+        const religionTabs = document.querySelectorAll('.religion-tab');
+        const backToTopBtn = document.getElementById('backToTop');
+        const christianityBreadcrumb = document.getElementById('christianity-breadcrumb');
+        const islamBreadcrumb = document.getElementById('islam-breadcrumb');
+        
+        // Event-Listener
+        
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('christianity_data.json')
+        .then(response => response.json())
+        .then(data => {
+            christianityData = data;
+            renderContent('christianity');
+        })
+        .catch(error => console.log("Keine christianity_data.json gefunden."));
+
+    fetch('islam_data.json')
+        .then(response => response.json())
+        .then(data => {
+            islamData = data;
+            renderContent('islam');
+        })
+        .catch(error => console.log("Keine islam_data.json gefunden."));
+
+            renderContent('christianity');
+            renderContent('islam');
+            setupScrollEvents();
+        });
+        
+        addChristianityFolderBtn.addEventListener('click', function() {
+            openFolderModal('christianity', currentChristianityPath);
+        });
+        
+        addIslamFolderBtn.addEventListener('click', function() {
+            openFolderModal('islam', currentIslamPath);
+        });
+        
+        addChristianityTopicBtn.addEventListener('click', function() {
+            openTopicModal('christianity', currentChristianityPath);
+        });
+        
+        addIslamTopicBtn.addEventListener('click', function() {
+            openTopicModal('islam', currentIslamPath);
+        });
+        
+        folderForm.addEventListener('submit', addFolder);
+        topicForm.addEventListener('submit', addTopic);
+        sourceForm.addEventListener('submit', addSource);
+        moveForm.addEventListener('submit', moveItem);
+        
+        religionTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const religion = this.getAttribute('data-religion');
+                switchReligion(religion);
+            });
+        });
+        
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                folderModal.style.display = 'none';
+                topicModal.style.display = 'none';
+                sourceModal.style.display = 'none';
+                moveModal.style.display = 'none';
+            });
+        });
+
+        // Breadcrumb Navigation
+        christianityBreadcrumb.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                const path = e.target.getAttribute('data-path');
+                navigateTo('christianity', path);
+            }
+        });
+        
+        islamBreadcrumb.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                const path = e.target.getAttribute('data-path');
+                navigateTo('islam', path);
+            }
+        });
+
+        // File preview handlers
+        document.getElementById('coverImage').addEventListener('change', function(e) {
+            previewFile(e.target, 'coverPreview');
+        });
+        
+        document.getElementById('pageScan').addEventListener('change', function(e) {
+            previewFile(e.target, 'scanPreview');
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Funktionen
+        function setupScrollEvents() {
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.style.display = 'block';
+                } else {
+                    backToTopBtn.style.display = 'none';
+                }
+            });
+        }
+        
+        function switchReligion(religion) {
+            // Aktiven Tab setzen
+            religionTabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-religion') === religion) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Aktiven Bereich anzeigen
+            document.querySelectorAll('.religion-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`${religion}-section`).classList.add('active');
+        }
+        
+        function navigateTo(religion, path) {
+            if (religion === 'christianity') {
+                currentChristianityPath = path;
+                updateBreadcrumb('christianity', path);
+            } else {
+                currentIslamPath = path;
+                updateBreadcrumb('islam', path);
+            }
+            renderContent(religion);
+        }
+        
+        function updateBreadcrumb(religion, currentPath) {
+            const breadcrumb = religion === 'christianity' ? christianityBreadcrumb : islamBreadcrumb;
+            const data = religion === 'christianity' ? christianityData : islamData;
+            
+            // Breadcrumb zurücksetzen
+            breadcrumb.innerHTML = `<li><a href="#" data-path="root" data-religion="${religion}">Hauptverzeichnis</a></li>`;
+            
+            if (currentPath !== 'root') {
+                // Pfad aufbauen
+                const pathParts = [];
+                let currentItem = currentPath;
+                
+                while (currentItem !== 'root') {
+                    const folder = data.folders.find(f => f.id === currentItem);
+                    if (folder) {
+                        pathParts.unshift({
+                            id: folder.id,
+                            name: folder.name
+                        });
+                        currentItem = folder.parentId;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // Breadcrumb-Elemente erstellen
+                pathParts.forEach((part, index) => {
+                    const isLast = index === pathParts.length - 1;
+                    const li = document.createElement('li');
+                    if (isLast) {
+                        li.textContent = part.name;
+                    } else {
+                        li.innerHTML = `<a href="#" data-path="${part.id}" data-religion="${religion}">${part.name}</a>`;
+                    }
+                    breadcrumb.appendChild(li);
+                });
+            }
+        }
+        
+        function renderContent(religion) {
+            const container = religion === 'christianity' ? christianityContainer : islamContainer;
+            const data = religion === 'christianity' ? christianityData : islamData;
+            const currentPath = religion === 'christianity' ? currentChristianityPath : currentIslamPath;
+            
+            container.innerHTML = '';
+            
+            // Ordner im aktuellen Pfad rendern
+            const folders = data.folders.filter(folder => folder.parentId === currentPath);
+            folders.forEach(folder => {
+                const folderElement = createFolderElement(folder);
+                container.appendChild(folderElement);
+            });
+            
+            // Themen im aktuellen Pfad rendern
+            const topics = data.topics.filter(topic => topic.parentId === currentPath);
+            if (folders.length === 0 && topics.length === 0) {
+                container.innerHTML = `<p>Dieser Ordner ist leer.</p>`;
+            }
+            
+            topics.forEach(topic => {
+                const topicElement = createTopicElement(topic);
+                container.appendChild(topicElement);
+            });
+            
+            saveToLocalStorage();
+        }
+        
+        function createFolderElement(folder) {
+            const folderElement = document.createElement('div');
+            folderElement.className = 'folder-container';
+            folderElement.id = folder.id;
+            
+            folderElement.innerHTML = `
+                <div class="folder-header">
+                    <h2 class="folder-title">
+                        <span class="folder-icon">📁</span>
+                        ${folder.name}
+                    </h2>
+                    <div class="folder-controls">
+                        <button class="btn" onclick="openMoveModal('${folder.id}', 'folder', '${folder.religion}')">Verschieben</button>
+                        <button class="btn btn-danger btn-icon" title="Ordner löschen" onclick="deleteFolder('${folder.id}', '${folder.religion}')">
+                            <svg class="trash-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path>
+                            </svg>
+                        </button>
+                        <button class="collapse-btn" onclick="toggleContent('${folder.id}-content')">▼</button>
+                    </div>
+                </div>
+                <div id="${folder.id}-content" class="folder-content">
+                    <p>${folder.description}</p>
+<button class="btn" onclick="navigateTo('${folder.religion}', '${folder.id}')">Öffnen</button>
+                </div>
+            `;
+            
+            return folderElement;
+        }
+        
+        function createTopicElement(topic) {
+            const topicElement = document.createElement('div');
+            topicElement.className = 'topic-container';
+            topicElement.id = topic.id;
+            
+            topicElement.innerHTML = `
+                <div class="topic-header">
+                    <h2 class="topic-title">${topic.title}</h2>
+                    <div class="topic-controls">
+                        <button class="btn" onclick="openMoveModal('${topic.id}', 'topic', '${topic.religion}')">Verschieben</button>
+                        <button class="btn btn-danger btn-icon" title="Thema löschen" onclick="deleteTopic('${topic.id}', '${topic.religion}')">
+                            <svg class="trash-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path>
+                            </svg>
+                        </button>
+                        <button class="collapse-btn" onclick="toggleContent('${topic.id}-content')">▼</button>
+                    </div>
+                </div>
+                <div id="${topic.id}-content" class="topic-content">
+                    <p>${topic.description}</p>
+                    <button class="btn" onclick="openSourceModal('${topic.id}', '${topic.religion}')">Neue Quelle hinzufügen</button>
+                    <div class="sources-grid">
+                        ${renderSources(topic.sources)}
+                    </div>
+                </div>
+            `;
+            
+            return topicElement;
+        }
+
+        function renderSources(sources) {
+            if (!sources || sources.length === 0) {
+                return '<p>Noch keine Quellen vorhanden.</p>';
+            }
+            
+            return sources.map(source => `
+                <div class="source-card" id="${source.id}">
+                    <h3>${source.title}</h3>
+                    <img src="${source.coverImage}" alt="Cover: ${source.title}">
+                    <div class="source-meta">
+                        <p><strong>Autor:</strong> ${source.author}</p>
+                        <p><strong>Jahr:</strong> ${source.year || 'Unbekannt'}</p>
+                        <p><strong>Kategorie:</strong> ${getCategoryName(source.category)}</p>
+                    </div>
+                    <h4>Seitenscan:</h4>
+                    <img src="${source.pageScan}" alt="Scan aus ${source.title}">
+                    <h4>Übersetzung/Notizen:</h4>
+                    <p>${source.translation}</p>
+                    <div class="actions">
+                        <button class="btn" onclick="editSource('${source.id}')">Bearbeiten</button>
+                        <button class="btn btn-danger" onclick="deleteSource('${source.id}')">Löschen</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'islam': 'Islam',
+                'christianity': 'Christentum',
+                'comparative': 'Vergleichend',
+                'other': 'Sonstiges'
+            };
+            return categories[category] || 'Sonstiges';
+        }
+
+        function openFolderModal(religion, parentId) {
+            folderForm.reset();
+            document.getElementById('folderReligion').value = religion;
+            document.getElementById('parentFolderId').value = parentId;
+            folderModal.style.display = 'block';
+        }
+
+        function openTopicModal(religion, parentId) {
+            topicForm.reset();
+            document.getElementById('topicReligion').value = religion;
+            document.getElementById('topicParentId').value = parentId;
+            topicModal.style.display = 'block';
+        }
+
+        function openSourceModal(topicId, religion) {
+            sourceForm.reset();
+            document.getElementById('topicId').value = topicId;
+            document.getElementById('sourceReligion').value = religion;
+            document.getElementById('coverPreview').src = '';
+            document.getElementById('scanPreview').src = '';
+            
+            // Vorauswahl der Kategorie basierend auf der Religion
+            document.getElementById('sourceCategory').value = religion;
+            
+            sourceModal.style.display = 'block';
+        }
+
+        function openMoveModal(itemId, itemType, religion) {
+            document.getElementById('moveItemId').value = itemId;
+            document.getElementById('moveItemType').value = itemType;
+            document.getElementById('moveReligion').value = religion;
+            
+            // Zielordner-Dropdown füllen
+            const targetFolder = document.getElementById('targetFolder');
+            targetFolder.innerHTML = '<option value="root">Hauptverzeichnis</option>';
+            
+            const data = religion === 'christianity' ? christianityData : islamData;
+            
+            // Ordner-Hierarchie aufbauen
+            function buildFolderOptions(folders, parentId, level = 0) {
+                const indent = '- '.repeat(level);
+                folders.filter(f => f.parentId === parentId && f.id !== itemId)
+                       .forEach(folder => {
+                           targetFolder.innerHTML += `<option value="${folder.id}">${indent}${folder.name}</option>`;
+                           // Rekursiv Unterordner hinzufügen
+                           buildFolderOptions(folders, folder.id, level + 1);
+                       });
+            }
+            
+            buildFolderOptions(data.folders, 'root');
+            
+            moveModal.style.display = 'block';
+        }
+
+        function addFolder(e) {
+            e.preventDefault();
+            
+            const religion = document.getElementById('folderReligion').value;
+            const name = document.getElementById('folderName').value;
+            const description = document.getElementById('folderDescription').value;
+            const parentId = document.getElementById('parentFolderId').value;
+            
+            const newFolder = {
+                id: 'folder-' + Date.now(),
+                name: name,
+                description: description,
+                parentId: parentId,
+                religion: religion
+            };
+            
+            if (religion === 'christianity') {
+                christianityData.folders.push(newFolder);
+            } else {
+                islamData.folders.push(newFolder);
+            }
+            
+            renderContent(religion);
+            folderModal.style.display = 'none';
+        }
+
+        function addTopic(e) {
+            e.preventDefault();
+            
+            const religion = document.getElementById('topicReligion').value;
+            const title = document.getElementById('topicTitle').value;
+            const description = document.getElementById('topicDescription').value;
+            const parentId = document.getElementById('topicParentId').value;
+            
+            const newTopic = {
+                id: 'topic-' + Date.now(),
+                title: title,
+                description: description,
+                parentId: parentId,
+                religion: religion,
+                sources: []
+            };
+            
+            if (religion === 'christianity') {
+                christianityData.topics.push(newTopic);
+            } else {
+                islamData.topics.push(newTopic);
+            }
+            
+            renderContent(religion);
+            topicModal.style.display = 'none';
+        }
+
+        function deleteFolder(folderId, religion) {
+            if (confirm('Möchten Sie diesen Ordner wirklich löschen? Alle Unterordner, Themen und Quellen werden ebenfalls gelöscht.')) {
+                const data = religion === 'christianity' ? christianityData : islamData;
+                
+                // Rekursive Funktion zum Löschen eines Ordners und seiner Inhalte
+                function deleteRecursively(folderId) {
+                    // Unterordner finden und rekursiv löschen
+                    const subfolders = data.folders.filter(f => f.parentId === folderId);
+                    subfolders.forEach(subfolder => {
+                        deleteRecursively(subfolder.id);
+                    });
+                    
+                    // Themen im Ordner löschen
+                    data.topics = data.topics.filter(topic => topic.parentId !== folderId);
+                    
+                    // Ordner selbst löschen
+                    data.folders = data.folders.filter(folder => folder.id !== folderId);
+                }
+                
+                deleteRecursively(folderId);
+                
+                // Falls wir uns im gelöschten Ordner befinden, zum übergeordneten wechseln
+                const folder = data.folders.find(f => f.id === folderId);
+                if (folder) {
+                    const parentId = folder.parentId;
+                    if (religion === 'christianity' && currentChristianityPath === folderId) {
+                        navigateTo('christianity', parentId);
+                    } else if (religion === 'islam' && currentIslamPath === folderId) {
+                        navigateTo('islam', parentId);
+                    }
+                }
+                
+                renderContent(religion);
+            }
+        }
+
+        function deleteTopic(topicId, religion) {
+            if (confirm('Möchten Sie dieses Thema wirklich löschen? Alle zugehörigen Quellen werden ebenfalls gelöscht.')) {
+                if (religion === 'christianity') {
+                    christianityData.topics = christianityData.topics.filter(topic => topic.id !== topicId);
+                } else {
+                    islamData.topics = islamData.topics.filter(topic => topic.id !== topicId);
+                }
+                renderContent(religion);
+            }
+        }
+
+        function addSource(e) {
+            e.preventDefault();
+            
+            const topicId = document.getElementById('topicId').value;
+            const religion = document.getElementById('sourceReligion').value;
+            const title = document.getElementById('sourceTitle').value;
+            const author = document.getElementById('sourceAuthor').value;
+            const year = document.getElementById('sourceYear').value;
+            const coverImageFile = document.getElementById('coverImage').files[0];
+        const coverImage = coverImageFile ? 'bilder/' + coverImageFile.name : '';
+            const pageScanFile = document.getElementById('pageScan').files[0];
+        const pageScan = pageScanFile ? 'bilder/' + pageScanFile.name : '';
+            const translation = document.getElementById('sourceTranslation').value;
+            const category = document.getElementById('sourceCategory').value;
+            
+            const newSource = {
+                id: 'source-' + Date.now(),
+                title: title,
+                author: author,
+                year: year,
+                coverImage: coverImage,
+                pageScan: pageScan,
+                translation: translation,
+                category: category
+            };
+            
+            const data = religion === 'christianity' ? christianityData : islamData;
+            const topicIndex = data.topics.findIndex(topic => topic.id === topicId);
+            
+            if (topicIndex !== -1) {
+                data.topics[topicIndex].sources.push(newSource);
+                renderContent(religion);
+                sourceModal.style.display = 'none';
+            }
+        }
+
+        function deleteSource(sourceId) {
+            if (confirm('Möchten Sie diese Quelle wirklich löschen?')) {
+                let found = false;
+                
+                // Suche in beiden Religionen
+                christianityData.topics.forEach(topic => {
+                    const sourceIndex = topic.sources.findIndex(source => source.id === sourceId);
+                    if (sourceIndex !== -1) {
+                        topic.sources.splice(sourceIndex, 1);
+                        found = true;
+                        renderContent('christianity');
+                    }
+                });
+                
+                if (!found) {
+                    islamData.topics.forEach(topic => {
+                        const sourceIndex = topic.sources.findIndex(source => source.id === sourceId);
+                        if (sourceIndex !== -1) {
+                            topic.sources.splice(sourceIndex, 1);
+                            renderContent('islam');
+                        }
+                    });
+                }
+            }
+        }
+
+        function editSource(sourceId) {
+            let sourceToEdit;
+            let topicId;
+            let religion;
+            
+            // Suche in beiden Religionen
+            let found = false;
+            
+            for (const topic of christianityData.topics) {
+                const source = topic.sources.find(s => s.id === sourceId);
+                if (source) {
+                    sourceToEdit = source;
+                    topicId = topic.id;
+                    religion = 'christianity';
+                    found = true;
+                    break;
+                }
+            }
+            
+            if (!found) {
+                for (const topic of islamData.topics) {
+                    const source = topic.sources.find(s => s.id === sourceId);
+                    if (source) {
+                        sourceToEdit = source;
+                        topicId = topic.id;
+                        religion = 'islam';
+                        break;
+                    }
+                }
+            }
+            
+            if (sourceToEdit) {
+                document.getElementById('topicId').value = topicId;
+                document.getElementById('sourceReligion').value = religion;
+                document.getElementById('sourceTitle').value = sourceToEdit.title;
+                document.getElementById('sourceAuthor').value = sourceToEdit.author;
+                document.getElementById('sourceYear').value = sourceToEdit.year;
+                document.getElementById('coverPreview').src = sourceToEdit.coverImage;
+                document.getElementById('scanPreview').src = sourceToEdit.pageScan;
+                document.getElementById('sourceTranslation').value = sourceToEdit.translation;
+                document.getElementById('sourceCategory').value = sourceToEdit.category;
+                
+                // Wir werden die vorhandene Quelle löschen und eine neue erstellen
+                deleteSource(sourceId);
+                sourceModal.style.display = 'block';
+            }
+        }
+
+        function moveItem(e) {
+            e.preventDefault();
+            
+            const itemId = document.getElementById('moveItemId').value;
+            const itemType = document.getElementById('moveItemType').value;
+            const religion = document.getElementById('moveReligion').value;
+            const targetFolderId = document.getElementById('targetFolder').value;
+            
+            const data = religion === 'christianity' ? christianityData : islamData;
+            
+            if (itemType === 'folder') {
+                // Prüfen, ob Zielordner nicht ein Unterordner des zu verschiebenden Ordners ist
+                let currentParent = targetFolderId;
+                let validMove = true;
+                
+                while (currentParent !== 'root') {
+                    if (currentParent === itemId) {
+                        validMove = false;
+                        break;
+                    }
+                    const parentFolder = data.folders.find(f => f.id === currentParent);
+                    if (!parentFolder) break;
+                    currentParent = parentFolder.parentId;
+                }
+                
+                if (!validMove) {
+                    alert('Ein Ordner kann nicht in seinen eigenen Unterordner verschoben werden!');
+                    moveModal.style.display = 'none';
+                    return;
+                }
+                
+                // Ordner verschieben
+                const folderIndex = data.folders.findIndex(f => f.id === itemId);
+                if (folderIndex !== -1) {
+                    data.folders[folderIndex].parentId = targetFolderId;
+                }
+            } else if (itemType === 'topic') {
+                // Thema verschieben
+                const topicIndex = data.topics.findIndex(t => t.id === itemId);
+                if (topicIndex !== -1) {
+                    data.topics[topicIndex].parentId = targetFolderId;
+                }
+            }
+            
+            renderContent(religion);
+            moveModal.style.display = 'none';
+        }
+
+        function toggleContent(contentId) {
+            const content = document.getElementById(contentId);
+            content.classList.toggle('hidden');
+            
+            const btn = content.previousElementSibling.querySelector('.collapse-btn');
+            if (content.classList.contains('hidden')) {
+                btn.textContent = '▶';
+            } else {
+                btn.textContent = '▼';
+            }
+        }
+
+        function previewFile(input, previewId) {
+            const preview = document.getElementById(previewId);
+            const file = input.files[0];
+            const reader = new FileReader();
+            
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            }
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('christianityData', JSON.stringify(christianityData));
+            localStorage.setItem('islamData', JSON.stringify(islamData));
+        }
+    
+
+function saveDataToFile(religion, data) {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = religion + "_data.json";
+    link.click();
+}
+
+function loadDataFromFile(input, religion) {
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const jsonData = JSON.parse(e.target.result);
+        if (religion === 'christianity') {
+            christianityData = jsonData;
+        } else {
+            islamData = jsonData;
+        }
+        renderContent(religion);
+    };
+    reader.readAsText(file);
+}
+</script>
+</body>
+</html>
